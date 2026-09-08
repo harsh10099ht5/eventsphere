@@ -1,4 +1,5 @@
 import pandas as pd
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -12,57 +13,107 @@ events = [
         "id": 1,
         "title": "Tech Fest 2026",
         "category": "Technical",
-        "description": "Technology, innovation, coding, robotics and emerging technologies.",
-        "skills": "technology coding robotics innovation programming",
+        "description": (
+            "Technology, innovation, coding, robotics "
+            "and emerging technologies."
+        ),
+        "skills": (
+            "technology coding robotics innovation programming"
+        ),
     },
+
     {
         "id": 2,
         "title": "Coding Competition",
         "category": "Technical",
-        "description": "Competitive programming, algorithms, problem solving and software development.",
-        "skills": "coding programming algorithms problem solving software development",
+        "description": (
+            "Competitive programming, algorithms, problem "
+            "solving and software development."
+        ),
+        "skills": (
+            "coding programming algorithms problem solving "
+            "software development"
+        ),
     },
+
     {
         "id": 3,
         "title": "AI & Machine Learning Workshop",
         "category": "Workshop",
-        "description": "Artificial intelligence, machine learning, data science and practical projects.",
-        "skills": "AI artificial intelligence machine learning data science python deep learning",
+        "description": (
+            "Artificial intelligence, machine learning, "
+            "data science and practical projects."
+        ),
+        "skills": (
+            "AI artificial intelligence machine learning "
+            "data science python deep learning"
+        ),
     },
+
     {
         "id": 4,
         "title": "Python Workshop",
         "category": "Workshop",
-        "description": "Python programming, automation, development and practical coding sessions.",
-        "skills": "python programming coding automation development",
+        "description": (
+            "Python programming, automation, development "
+            "and practical coding sessions."
+        ),
+        "skills": (
+            "python programming coding automation development"
+        ),
     },
+
     {
         "id": 5,
         "title": "Campus Hackathon",
         "category": "Hackathon",
-        "description": "Build innovative software solutions and solve real world problems with a team.",
-        "skills": "hackathon coding innovation software development teamwork problem solving",
+        "description": (
+            "Build innovative software solutions and solve "
+            "real world problems with a team."
+        ),
+        "skills": (
+            "hackathon coding innovation software development "
+            "teamwork problem solving"
+        ),
     },
+
     {
         "id": 6,
         "title": "Innovation Challenge",
         "category": "Hackathon",
-        "description": "Create innovative solutions using technology, creativity and entrepreneurship.",
-        "skills": "innovation technology startup entrepreneurship creativity problem solving",
+        "description": (
+            "Create innovative solutions using technology, "
+            "creativity and entrepreneurship."
+        ),
+        "skills": (
+            "innovation technology startup entrepreneurship "
+            "creativity problem solving"
+        ),
     },
+
     {
         "id": 7,
         "title": "Cultural Fest",
         "category": "Cultural",
-        "description": "Music, dance, drama, art and cultural activities.",
-        "skills": "music dance drama art culture performance creativity",
+        "description": (
+            "Music, dance, drama, art and cultural activities."
+        ),
+        "skills": (
+            "music dance drama art culture performance creativity"
+        ),
     },
+
     {
         "id": 8,
         "title": "Sports Meet",
         "category": "Sports",
-        "description": "Inter-college sports competition including athletics, cricket and football.",
-        "skills": "sports cricket football athletics fitness competition",
+        "description": (
+            "Inter-college sports competition including "
+            "athletics, cricket and football."
+        ),
+        "skills": (
+            "sports cricket football athletics fitness competition"
+        ),
     },
 ]
 
@@ -96,10 +147,12 @@ df["features"] = (
 vectorizer = TfidfVectorizer(
     lowercase=True,
     stop_words="english",
-    ngram_range=(1, 2)
+    ngram_range=(1, 2),
 )
 
-event_vectors = vectorizer.fit_transform(df["features"])
+event_vectors = vectorizer.fit_transform(
+    df["features"]
+)
 
 
 # ============================================================
@@ -116,6 +169,7 @@ category_keywords = {
         "computer",
         "development",
     ],
+
     "workshop": [
         "workshop",
         "learning",
@@ -124,6 +178,7 @@ category_keywords = {
         "ai",
         "machine learning",
     ],
+
     "hackathon": [
         "hackathon",
         "innovation",
@@ -131,6 +186,7 @@ category_keywords = {
         "problem solving",
         "competition",
     ],
+
     "cultural": [
         "cultural",
         "music",
@@ -139,6 +195,7 @@ category_keywords = {
         "art",
         "performance",
     ],
+
     "sports": [
         "sports",
         "cricket",
@@ -150,140 +207,28 @@ category_keywords = {
 
 
 # ============================================================
-# RECOMMENDATION FUNCTION
-# ============================================================
-
-def recommend_events(
-    interest,
-    preferred_category=None,
-    top_n=3
-):
-    """
-    Recommend events using TF-IDF + cosine similarity.
-
-    Parameters:
-        interest: Student's interest text
-        preferred_category: Optional event category
-        top_n: Number of recommendations
-
-    Returns:
-        List of recommended events
-    """
-
-    if not interest or not interest.strip():
-        return []
-
-    interest = interest.strip()
-
-    # --------------------------------------------------------
-    # Convert student interest into vector
-    # --------------------------------------------------------
-
-    user_vector = vectorizer.transform([interest])
-
-    # --------------------------------------------------------
-    # Calculate similarity
-    # --------------------------------------------------------
-
-    similarity_scores = cosine_similarity(
-        user_vector,
-        event_vectors
-    )[0]
-
-    # --------------------------------------------------------
-    # Create result dataframe
-    # --------------------------------------------------------
-
-    results = df.copy()
-
-    results["score"] = similarity_scores
-
-    # --------------------------------------------------------
-    # Category boost
-    # --------------------------------------------------------
-
-    if preferred_category:
-        category = preferred_category.lower().strip()
-
-        results.loc[
-            results["category"].str.lower() == category,
-            "score"
-        ] += 0.20
-
-    # --------------------------------------------------------
-    # Keyword boost
-    # --------------------------------------------------------
-
-    interest_lower = interest.lower()
-
-    for category, keywords in category_keywords.items():
-
-        if any(keyword in interest_lower for keyword in keywords):
-
-            results.loc[
-                results["category"].str.lower() == category,
-                "score"
-            ] += 0.15
-
-    # --------------------------------------------------------
-    # Sort recommendations
-    # --------------------------------------------------------
-
-    results = results.sort_values(
-        by="score",
-        ascending=False
-    )
-
-    results = results.head(top_n)
-
-    # --------------------------------------------------------
-    # Format API response
-    # --------------------------------------------------------
-
-    recommendations = []
-
-    for _, row in results.iterrows():
-
-        score = float(row["score"])
-
-        # Keep score between 0 and 1
-        score = min(score, 1.0)
-
-        recommendations.append({
-            "id": int(row["id"]),
-            "title": row["title"],
-            "category": row["category"],
-            "description": row["description"],
-            "match_score": round(score * 100, 2),
-            "reason": generate_reason(
-                interest,
-                row["category"],
-                score
-            )
-        })
-
-    return recommendations
-
-
-# ============================================================
 # RECOMMENDATION REASON
 # ============================================================
 
 def generate_reason(
     interest,
     category,
-    score
+    score,
 ):
     """
-    Generate a simple human-readable explanation.
+    Generate a human-readable explanation
+    for the recommendation.
     """
 
     if score >= 0.70:
         level = "Very strong match"
+
     elif score >= 0.40:
         level = "Strong match"
+
     elif score >= 0.20:
         level = "Good match"
+
     else:
         level = "Possible match"
 
@@ -294,36 +239,233 @@ def generate_reason(
 
 
 # ============================================================
+# RECOMMENDATION FUNCTION
+# ============================================================
+
+def recommend_events(
+    interest,
+    preferred_category=None,
+    top_n=3,
+):
+    """
+    Recommend events using:
+
+    1. TF-IDF vectorization
+    2. Cosine similarity
+    3. Category boosting
+    4. Keyword boosting
+
+    Parameters
+    ----------
+    interest : str
+        Student's interest text.
+
+    preferred_category : str, optional
+        Preferred event category.
+
+    top_n : int
+        Number of recommendations.
+
+    Returns
+    -------
+    list
+        List of recommended events.
+    """
+
+    # --------------------------------------------------------
+    # Validate interest
+    # --------------------------------------------------------
+
+    if not interest or not interest.strip():
+        return []
+
+    interest = interest.strip()
+
+
+    # --------------------------------------------------------
+    # Validate top_n
+    # --------------------------------------------------------
+
+    try:
+        top_n = int(top_n)
+    except (TypeError, ValueError):
+        top_n = 3
+
+    top_n = max(1, min(top_n, len(df)))
+
+
+    # --------------------------------------------------------
+    # Convert student interest into vector
+    # --------------------------------------------------------
+
+    user_vector = vectorizer.transform(
+        [interest]
+    )
+
+
+    # --------------------------------------------------------
+    # Calculate cosine similarity
+    # --------------------------------------------------------
+
+    similarity_scores = cosine_similarity(
+        user_vector,
+        event_vectors,
+    )[0]
+
+
+    # --------------------------------------------------------
+    # Create result dataframe
+    # --------------------------------------------------------
+
+    results = df.copy()
+
+    results["score"] = similarity_scores
+
+
+    # --------------------------------------------------------
+    # Preferred category boost
+    # --------------------------------------------------------
+
+    if preferred_category:
+
+        category = preferred_category.strip().lower()
+
+        results.loc[
+            results["category"].str.lower() == category,
+            "score",
+        ] += 0.20
+
+
+    # --------------------------------------------------------
+    # Interest keyword category boost
+    # --------------------------------------------------------
+
+    interest_lower = interest.lower()
+
+    for category, keywords in category_keywords.items():
+
+        keyword_found = any(
+            keyword in interest_lower
+            for keyword in keywords
+        )
+
+        if keyword_found:
+
+            results.loc[
+                results["category"].str.lower() == category,
+                "score",
+            ] += 0.15
+
+
+    # --------------------------------------------------------
+    # Sort recommendations
+    # --------------------------------------------------------
+
+    results = results.sort_values(
+        by="score",
+        ascending=False,
+    )
+
+
+    # --------------------------------------------------------
+    # Get top N
+    # --------------------------------------------------------
+
+    results = results.head(top_n)
+
+
+    # --------------------------------------------------------
+    # Format API response
+    # --------------------------------------------------------
+
+    recommendations = []
+
+    for _, row in results.iterrows():
+
+        raw_score = float(row["score"])
+
+
+        # Keep score between 0 and 1
+
+        score = max(
+            0.0,
+            min(raw_score, 1.0),
+        )
+
+
+        recommendations.append(
+            {
+                "id": int(row["id"]),
+
+                "title": str(row["title"]),
+
+                "category": str(row["category"]),
+
+                "description": str(
+                    row["description"]
+                ),
+
+                "match_score": round(
+                    score * 100,
+                    2,
+                ),
+
+                "reason": generate_reason(
+                    interest,
+                    row["category"],
+                    score,
+                ),
+            }
+        )
+
+
+    return recommendations
+
+
+# ============================================================
 # TESTING
 # ============================================================
 
 if __name__ == "__main__":
 
     print("=" * 60)
-    print("EVENTSPHERE AI RECOMMENDATION ENGINE")
+
+    print(
+        "EVENTSPHERE AI RECOMMENDATION ENGINE"
+    )
+
     print("=" * 60)
+
 
     interest = input(
         "\nEnter your interest: "
     )
 
+
     recommendations = recommend_events(
         interest=interest,
-        top_n=3
+        top_n=3,
     )
 
-    print("\nRecommended Events")
+
+    print(
+        "\nRecommended Events"
+    )
+
     print("-" * 60)
+
 
     if not recommendations:
 
-        print("No suitable events found.")
+        print(
+            "No suitable events found."
+        )
 
     else:
 
         for index, event in enumerate(
             recommendations,
-            start=1
+            start=1,
         ):
 
             print(
@@ -331,13 +473,16 @@ if __name__ == "__main__":
             )
 
             print(
-                f"   Category: {event['category']}"
+                f"   Category: "
+                f"{event['category']}"
             )
 
             print(
-                f"   Match: {event['match_score']}%"
+                f"   Match: "
+                f"{event['match_score']}%"
             )
 
             print(
-                f"   Reason: {event['reason']}"
+                f"   Reason: "
+                f"{event['reason']}"
             )
