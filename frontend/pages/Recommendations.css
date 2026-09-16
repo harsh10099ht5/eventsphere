@@ -1,0 +1,760 @@
+/* ============================================================
+   EVENTSPHERE — AI RECOMMENDATION PAGE
+   ============================================================ */
+
+.recommendations-page {
+  min-height: 100vh;
+  background: #f7f7f5;
+  color: #171717;
+}
+
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+
+.recommendation-navbar {
+  height: 76px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border-bottom: 1px solid #e8e8e5;
+}
+
+.recommendation-logo {
+  color: #111111;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.recommendation-logo span {
+  color: #777777;
+}
+
+.back-home {
+  color: #555555;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.back-home:hover {
+  color: #111111;
+}
+
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.recommendation-hero {
+  padding: 95px 7% 85px;
+  background: #171717;
+  color: #ffffff;
+}
+
+.recommendation-hero-content {
+  max-width: 850px;
+}
+
+.recommendation-label {
+  display: inline-block;
+  margin-bottom: 18px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #777777;
+}
+
+.recommendation-hero .recommendation-label {
+  color: #aaaaaa;
+}
+
+.recommendation-hero h1 {
+  margin: 0;
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: 0.98;
+  letter-spacing: -4px;
+  font-weight: 800;
+}
+
+.recommendation-hero h1 span {
+  color: #888888;
+}
+
+.recommendation-hero p {
+  max-width: 680px;
+  margin: 30px 0 0;
+  color: #b7b7b7;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+
+/* ============================================================
+   MAIN CONTAINER
+   ============================================================ */
+
+.recommendation-form-section {
+  padding: 75px 7% 100px;
+}
+
+.recommendation-container {
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+
+/* ============================================================
+   FORM CARD
+   ============================================================ */
+
+.recommendation-form-card {
+  background: #ffffff;
+  border: 1px solid #e5e5e2;
+  padding: 45px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.05);
+}
+
+.form-header {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  padding-bottom: 32px;
+  margin-bottom: 35px;
+  border-bottom: 1px solid #eeeeeb;
+}
+
+.form-number {
+  min-width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #171717;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.form-header h2 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  letter-spacing: -1px;
+}
+
+.form-header p {
+  margin: 0;
+  color: #777777;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   INPUTS
+   ============================================================ */
+
+.recommendation-input-group {
+  margin-bottom: 25px;
+}
+
+.recommendation-input-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #292929;
+}
+
+.recommendation-input-group input,
+.recommendation-input-group select {
+  width: 100%;
+  height: 56px;
+  box-sizing: border-box;
+  padding: 0 17px;
+  border: 1px solid #dcdcd8;
+  background: #fafaf8;
+  color: #171717;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.recommendation-input-group input:focus,
+.recommendation-input-group select:focus {
+  border-color: #171717;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+}
+
+.recommendation-input-group input::placeholder {
+  color: #a0a0a0;
+}
+
+.recommendation-input-group small {
+  display: block;
+  margin-top: 8px;
+  color: #929292;
+  font-size: 12px;
+}
+
+
+/* ============================================================
+   ACTIONS
+   ============================================================ */
+
+.recommendation-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.recommendation-submit {
+  min-height: 54px;
+  padding: 0 25px;
+  border: none;
+  background: #171717;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.recommendation-submit:hover {
+  background: #333333;
+  transform: translateY(-1px);
+}
+
+.recommendation-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.recommendation-reset {
+  min-height: 54px;
+  padding: 0 22px;
+  border: 1px solid #d8d8d5;
+  background: #ffffff;
+  color: #444444;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.recommendation-reset:hover {
+  border-color: #171717;
+  color: #171717;
+}
+
+
+/* ============================================================
+   ERROR
+   ============================================================ */
+
+.recommendation-error {
+  margin-top: 25px;
+  padding: 18px 20px;
+  border-left: 3px solid #171717;
+  background: #f3f3f1;
+}
+
+.recommendation-error strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+
+.recommendation-error p {
+  margin: 0;
+  color: #666666;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+
+/* ============================================================
+   NO RESULTS
+   ============================================================ */
+
+.no-recommendations {
+  margin-top: 45px;
+  padding: 60px 30px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e5e5e2;
+}
+
+.no-results-icon {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  border: 1px solid #dcdcd8;
+  font-size: 20px;
+}
+
+.no-recommendations h3 {
+  margin: 0 0 8px;
+  font-size: 21px;
+}
+
+.no-recommendations p {
+  margin: 0;
+  color: #777777;
+  font-size: 14px;
+}
+
+
+/* ============================================================
+   RESULTS SECTION
+   ============================================================ */
+
+.recommendation-results-section {
+  margin-top: 85px;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #ddddda;
+}
+
+.results-header .recommendation-label {
+  margin-bottom: 10px;
+}
+
+.results-header h2 {
+  margin: 0;
+  font-size: 42px;
+  line-height: 1.05;
+  letter-spacing: -2px;
+}
+
+.results-header p {
+  margin: 12px 0 0;
+  color: #777777;
+  font-size: 14px;
+}
+
+.results-count {
+  min-width: 85px;
+  height: 85px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #171717;
+  color: #ffffff;
+}
+
+.results-count strong {
+  font-size: 25px;
+  line-height: 1;
+}
+
+.results-count span {
+  margin-top: 5px;
+  color: #aaaaaa;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+/* ============================================================
+   RECOMMENDATION GRID
+   ============================================================ */
+
+.recommendation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 30px;
+}
+
+
+/* ============================================================
+   RECOMMENDATION CARD
+   ============================================================ */
+
+.recommendation-card {
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid #e4e4e1;
+  transition: 0.25s ease;
+}
+
+.recommendation-card:hover {
+  border-color: #bdbdb8;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
+  transform: translateY(-3px);
+}
+
+
+/* ============================================================
+   CARD TOP
+   ============================================================ */
+
+.recommendation-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 25px;
+}
+
+.recommendation-rank {
+  font-size: 12px;
+  font-weight: 900;
+  color: #999999;
+  letter-spacing: 1px;
+}
+
+.match-score {
+  text-align: right;
+}
+
+.match-score strong {
+  display: block;
+  font-size: 25px;
+  letter-spacing: -1px;
+}
+
+.match-score span {
+  display: block;
+  margin-top: 4px;
+  color: #777777;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+/* ============================================================
+   CATEGORY
+   ============================================================ */
+
+.recommendation-category {
+  display: inline-block;
+  margin-bottom: 13px;
+  padding: 6px 9px;
+  background: #eeeeeb;
+  color: #555555;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+/* ============================================================
+   CARD CONTENT
+   ============================================================ */
+
+.recommendation-card h3 {
+  margin: 0;
+  font-size: 25px;
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
+
+.recommendation-description {
+  min-height: 66px;
+  margin: 14px 0 25px;
+  color: #707070;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+
+/* ============================================================
+   MATCH SCORE
+   ============================================================ */
+
+.match-section {
+  margin-bottom: 22px;
+}
+
+.match-section-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 9px;
+  color: #777777;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.match-section-header strong {
+  color: #171717;
+}
+
+.match-bar {
+  width: 100%;
+  height: 6px;
+  overflow: hidden;
+  background: #e7e7e4;
+}
+
+.match-progress {
+  height: 100%;
+  background: #171717;
+  transition: width 0.7s ease;
+}
+
+
+/* ============================================================
+   SCORE BREAKDOWN
+   ============================================================ */
+
+.score-breakdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 23px;
+  border-top: 1px solid #eeeeeb;
+  border-bottom: 1px solid #eeeeeb;
+}
+
+.score-breakdown div {
+  padding: 12px 7px;
+  text-align: center;
+  border-right: 1px solid #eeeeeb;
+}
+
+.score-breakdown div:last-child {
+  border-right: none;
+}
+
+.score-breakdown span {
+  display: block;
+  margin-bottom: 5px;
+  color: #999999;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.score-breakdown strong {
+  font-size: 11px;
+}
+
+
+/* ============================================================
+   WHY THIS EVENT
+   ============================================================ */
+
+.recommendation-reason {
+  margin-bottom: 23px;
+  padding: 16px;
+  background: #f5f5f2;
+}
+
+.recommendation-reason > span {
+  display: block;
+  margin-bottom: 7px;
+  color: #777777;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+}
+
+.recommendation-reason p {
+  margin: 0;
+  color: #4d4d4d;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+
+/* ============================================================
+   EVENT INFORMATION
+   ============================================================ */
+
+.recommendation-event-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 23px;
+}
+
+.recommendation-event-info div {
+  min-width: 0;
+}
+
+.recommendation-event-info span {
+  display: block;
+  margin-bottom: 5px;
+  color: #999999;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.recommendation-event-info strong {
+  display: block;
+  overflow: hidden;
+  color: #333333;
+  font-size: 11px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   VIEW BUTTON
+   ============================================================ */
+
+.recommendation-view-btn {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #171717;
+  background: #ffffff;
+  color: #171717;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.recommendation-view-btn:hover {
+  background: #171717;
+  color: #ffffff;
+}
+
+
+/* ============================================================
+   RESPONSIVE — TABLET
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+  .recommendation-navbar {
+    padding: 0 5%;
+  }
+
+  .recommendation-hero {
+    padding: 75px 5%;
+  }
+
+  .recommendation-form-section {
+    padding: 55px 5% 80px;
+  }
+
+  .recommendation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .results-header {
+    align-items: flex-start;
+  }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — MOBILE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+  .recommendation-navbar {
+    height: 68px;
+  }
+
+  .recommendation-logo {
+    font-size: 21px;
+  }
+
+  .recommendation-hero {
+    padding: 60px 20px;
+  }
+
+  .recommendation-hero h1 {
+    font-size: 48px;
+    letter-spacing: -2.5px;
+  }
+
+  .recommendation-hero p {
+    font-size: 14px;
+  }
+
+  .recommendation-form-section {
+    padding: 35px 15px 60px;
+  }
+
+  .recommendation-form-card {
+    padding: 25px 20px;
+  }
+
+  .form-header {
+    gap: 15px;
+  }
+
+  .form-header h2 {
+    font-size: 22px;
+  }
+
+  .recommendation-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .recommendation-submit,
+  .recommendation-reset {
+    width: 100%;
+  }
+
+  .results-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .results-header h2 {
+    font-size: 32px;
+  }
+
+  .recommendation-card {
+    padding: 22px;
+  }
+
+  .recommendation-card h3 {
+    font-size: 21px;
+  }
+
+  .score-breakdown {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .score-breakdown div:nth-child(2) {
+    border-right: none;
+  }
+
+  .score-breakdown div:nth-child(1),
+  .score-breakdown div:nth-child(2) {
+    border-bottom: 1px solid #eeeeeb;
+  }
+
+  .recommendation-event-info {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+}
