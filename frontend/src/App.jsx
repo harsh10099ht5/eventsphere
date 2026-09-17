@@ -13,6 +13,7 @@ function App() {
   const [recommendationLoading, setRecommendationLoading] = useState(false);
   const [bookmarkedEvents, setBookmarkedEvents] = useState(() => new Set());
   const [interactionMessage, setInteractionMessage] = useState("");
+  const [showBookmarkedOnly, setShowBookmarkedOnly] = useState(false);
 
   // ============================================================
   // FETCH EVENTS
@@ -41,7 +42,23 @@ function App() {
 
   useEffect(() => {
     fetchEvents();
+
+    const savedBookmarks = window.localStorage.getItem("eventsphere_bookmarks");
+    if (savedBookmarks) {
+      try {
+        setBookmarkedEvents(new Set(JSON.parse(savedBookmarks)));
+      } catch (error) {
+        console.warn("Unable to restore bookmarks:", error);
+      }
+    }
   }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      "eventsphere_bookmarks",
+      JSON.stringify([...bookmarkedEvents])
+    );
+  }, [bookmarkedEvents]);
 
   // ============================================================
   // USER INTERACTION TRACKING
@@ -244,9 +261,9 @@ function App() {
         event.category?.toLowerCase().includes(query) ||
         event.venue?.toLowerCase().includes(query);
 
-      return categoryMatch && searchMatch;
+      return categoryMatch && searchMatch && bookmarkMatch;
     });
-  }, [events, activeCategory, searchQuery]);
+  }, [events, activeCategory, searchQuery, showBookmarkedOnly, bookmarkedEvents]);
 
   // ============================================================
   // SCROLL FUNCTION
@@ -551,6 +568,13 @@ function App() {
             />
 
           </div>
+
+          <button
+            className={showBookmarkedOnly ? "active-category" : "view-all"}
+            onClick={() => setShowBookmarkedOnly((previous) => !previous)}
+          >
+            {showBookmarkedOnly ? "Showing Bookmarks" : "My Bookmarks"}
+          </button>
 
         </div>
 
@@ -1022,6 +1046,13 @@ function App() {
               {selectedEvent.description ||
                 "No description available."}
             </p>
+
+            {selectedEvent.skills && (
+              <div className="modal-skills">
+                <span>Skills & Topics</span>
+                <p>{selectedEvent.skills}</p>
+              </div>
+            )}
 
             <div className="modal-details">
 
